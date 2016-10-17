@@ -1,3 +1,5 @@
+require 'reload-config'
+
 -- A global variable for the Hyper Mode
 k = hs.hotkey.modal.new({}, "F17")
 
@@ -159,33 +161,3 @@ end)
 -- hs.hotkey.bind(cmd, "f5", function()
 -- 	hs.application.open("Todoist")
 -- end)
-
-
--- ---
--- local usbWatcher = nil
-
--- -- This is our usbWatcher function
--- -- lock when yubikey is removed
--- function usbDeviceCallback(data)
---     -- this line will let you know the name of each usb device you connect, useful for the string match below
---     hs.notify.show("USB", data["productName"], data["eventType"])
---     -- Replace "Yubikey" with the name of the usb device you want to use.
---     if string.match(data["productName"], "Yubikey") then
---         if (data["eventType"] == "added") then
---             -- hs.notify.show("Yubikey", "You just connected", data["productName"])
---             -- wake the screen up
---             os.execute("caffeinate -u -t 5")
---         elseif (data["eventType"] == "removed") then
---             -- replace +000000000000 with a phone number registered to iMessage
---             --- hs.messages.iMessage("+000000000000", "Your Yubikey was just removed from your Work iMac.")
---             -- this locks to screensaver
---             os.execute("pmset displaysleepnow")
---        end
---    end
--- end
-
--- -- Start the usb watcher
--- usbWatcher = hs.usb.watcher.new(usbDeviceCallback)
--- usbWatcher:start()
-
--- ----

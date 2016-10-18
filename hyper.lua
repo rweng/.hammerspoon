@@ -41,3 +41,21 @@ for i, modifiers in ipairs(modifierCombinations) do
   k:bind(modifiers, 'i', up(modifiers))
   k:bind(modifiers, 'k', down(modifiers))
 end
+
+-- fix umlauts
+local umlauts = { 'a', 'o', 'u' }
+for i, umlaut in ipairs(umlauts) do
+  hs.hotkey.bind({'alt'}, umlaut, function() 
+    hs.eventtap.keyStroke({'alt'}, 'u')
+    hs.timer.doAfter(0.1, function()
+    hs.eventtap.keyStroke({}, umlaut)
+    end)
+  end)
+
+  hs.hotkey.bind({'alt', 'shift'}, umlaut, function() 
+    hs.eventtap.keyStroke({'alt'}, 'u')
+    hs.timer.doAfter(0.1, function()
+    hs.eventtap.keyStroke({'shift'}, umlaut)
+    end)
+  end)
+end

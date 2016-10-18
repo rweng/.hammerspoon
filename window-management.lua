@@ -47,3 +47,8 @@ winman:bind({}, "down", function()
     local cell = hs.grid.get(win)
 	hs.grid.set(hs.window.focusedWindow(), { x=cell.x, y=1, w=cell.w, h=1 })
 end)
+
+-- next window of application
+winman:bind({}, ";", function()
+	hs.window.switcher.nextWindow()
+end)

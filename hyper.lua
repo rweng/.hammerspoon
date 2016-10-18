@@ -2,7 +2,7 @@ local inspect = require('inspect')
 local logger = hs.logger.new('hyper.lua', 'info')
 
 -- A global variable for the Hyper Mode
-hyper = hs.hotkey.modal.new()
+local hyper = hs.hotkey.modal.new()
 local hyperKey = 'F18'
 
 local toggleHyper = function()
@@ -42,3 +42,5 @@ for i, modifiers in ipairs(modifierCombinations) do
   hyper:bind(modifiers, 'u', nil, delete(modifiers))
   hyper:bind(modifiers, 'o', nil, forwarddelete(modifiers))
 end
+
+return hyper

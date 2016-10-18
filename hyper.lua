@@ -32,6 +32,8 @@ local function left(modifiers) return function() hs.eventtap.keyStroke(modifiers
 local function right(modifiers) return function() hs.eventtap.keyStroke(modifiers, "right") end end
 local function up(modifiers) return function() hs.eventtap.keyStroke(modifiers, "up") end end
 local function down(modifiers) return function()hs.eventtap.keyStroke(modifiers, "down") end end
+local function delete(modifiers) return function()hs.eventtap.keyStroke(modifiers, "delete") end end
+local function forwarddelete(modifiers) return function()hs.eventtap.keyStroke(modifiers, "forwarddelete") end end
 
 -- Bind the Hyper and arrow keys
 for i, modifiers in ipairs(modifierCombinations) do
@@ -40,6 +42,8 @@ for i, modifiers in ipairs(modifierCombinations) do
   k:bind(modifiers, 'l', right(modifiers))
   k:bind(modifiers, 'i', up(modifiers))
   k:bind(modifiers, 'k', down(modifiers))
+  k:bind(modifiers, 'u', delete(modifiers))
+  k:bind(modifiers, 'o', forwarddelete(modifiers))
 end
 
 -- fix umlauts

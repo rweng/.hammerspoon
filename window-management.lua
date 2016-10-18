@@ -1,3 +1,5 @@
+require 'extensions'
+
 local hyper = require 'hyper'
 local logger = hs.logger.new('window-management.lua', 'info')
 local winman = hs.hotkey.modal.new()
@@ -7,8 +9,10 @@ hyper:bind({}, 'w', nil, function()
 	hs.alert.show('Window Mode') 
 end)
 
+local origialHyperExited = hyper.exited
 function hyper:exited()
 	winman:exit()
+	origialHyperExited(hyper)
 end
 
 hs.window.animationDuration = 0
@@ -46,9 +50,4 @@ winman:bind({}, "down", function()
 	local win = hs.window.focusedWindow()
     local cell = hs.grid.get(win)
 	hs.grid.set(hs.window.focusedWindow(), { x=cell.x, y=1, w=cell.w, h=1 })
-end)
-
--- next window of application
-winman:bind({}, ";", function()
-	hs.window.switcher.nextWindow()
 end)

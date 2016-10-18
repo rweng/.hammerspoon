@@ -5,20 +5,6 @@ local logger = hs.logger.new('hyper.lua', 'info')
 local hyper = hs.hotkey.modal.new()
 local hyperKey = 'F18'
 
-local toggleHyper = function()
-  if hyper.isActive then
-    hyper:exit()
-    hyper.isActive = nil
-    hs.alert.show('Normal mode')
-  else
-    hyper:enter() 
-    hyper.isActive = true
-    hs.alert.show('Hyper mode')
-  end
-end
-
-hs.hotkey.bind({}, hyperKey, nil, toggleHyper)
-
 local modifierCombinations = {
   {}, {'cmd'}, {'alt'}, {'shift'}, {'ctrl'},
   {'cmd', 'ctrl'}, {'cmd', 'alt'}, {'cmd', 'shift'}, {'ctrl', 'alt'}, {'ctrl', 'shift'}, {'alt', 'shift'},
@@ -35,6 +21,8 @@ local function forwarddelete(modifiers) return function()hs.eventtap.keyStroke(m
 
 -- Bind the Hyper and arrow keys
 for i, modifiers in ipairs(modifierCombinations) do
+  hs.hotkey.bind(modifiers, hyperKey, function() hyper:enter() end, function() hyper:exit() end)
+
   hyper:bind(modifiers, 'j', nil, left(modifiers))
   hyper:bind(modifiers, 'l', nil, right(modifiers))
   hyper:bind(modifiers, 'i', nil, up(modifiers))

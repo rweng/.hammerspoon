@@ -2,24 +2,22 @@ local inspect = require('inspect')
 local logger = hs.logger.new('hyper.lua', 'info')
 
 -- A global variable for the Hyper Mode
-local k = hs.hotkey.modal.new()
+hyper = hs.hotkey.modal.new()
 local hyperKey = 'F18'
 
--- Enter Hyper Mode when F18 (Hyper/Capslock) is pressed
-local pressedHyper = function()
-  k.modifiers = modifiers
-  k.triggered = true
-  k:enter()
-end
-
--- Leave Hyper Mode when F18 (Hyper/Capslock) is pressed,
---   send ESCAPE if no other keys are pressed.
-local releasedHyper = function()
-  k:exit()
-  if not k.triggered then
-    hs.eventtap.keyStroke({}, 'ESCAPE')
+local toggleHyper = function()
+  if hyper.isActive then
+    hyper:exit()
+    hyper.isActive = nil
+    hs.alert.show('Normal mode')
+  else
+    hyper:enter() 
+    hyper.isActive = true
+    hs.alert.show('Hyper mode')
   end
 end
+
+hs.hotkey.bind({}, hyperKey, nil, toggleHyper)
 
 local modifierCombinations = {
   {}, {'cmd'}, {'alt'}, {'shift'}, {'ctrl'},
@@ -37,11 +35,10 @@ local function forwarddelete(modifiers) return function()hs.eventtap.keyStroke(m
 
 -- Bind the Hyper and arrow keys
 for i, modifiers in ipairs(modifierCombinations) do
-  hs.hotkey.bind(modifiers, hyperKey, pressedHyper, releasedHyper)
-  k:bind(modifiers, 'j', left(modifiers))
-  k:bind(modifiers, 'l', right(modifiers))
-  k:bind(modifiers, 'i', up(modifiers))
-  k:bind(modifiers, 'k', down(modifiers))
-  k:bind(modifiers, 'u', delete(modifiers))
-  k:bind(modifiers, 'o', forwarddelete(modifiers))
+  hyper:bind(modifiers, 'j', nil, left(modifiers))
+  hyper:bind(modifiers, 'l', nil, right(modifiers))
+  hyper:bind(modifiers, 'i', nil, up(modifiers))
+  hyper:bind(modifiers, 'k', nil, down(modifiers))
+  hyper:bind(modifiers, 'u', nil, delete(modifiers))
+  hyper:bind(modifiers, 'o', nil, forwarddelete(modifiers))
 end

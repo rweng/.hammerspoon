@@ -51,3 +51,8 @@ winman:bind({}, "down", function()
     local cell = hs.grid.get(win)
 	hs.grid.set(hs.window.focusedWindow(), { x=cell.x, y=1, w=cell.w, h=1 })
 end)
+
+winman:bind({}, "1", launchOrCycleFocus("/Applications/Google Chrome.app"))
+winman:bind({}, "2", launchOrCycleFocus("/Applications/Visual Studio Code.app"))
+winman:bind({}, "3", launchOrCycleFocus("/Applications/iTerm.app"))
+winman:bind({}, "4", launchOrCycleFocus("/System/Library/CoreServices/Finder.app"))

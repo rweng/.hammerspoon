@@ -31,4 +31,12 @@ for i, modifiers in ipairs(modifierCombinations) do
   hyper:bind(modifiers, 'o', nil, forwarddelete(modifiers))
 end
 
+-- applications
+hyper:bind({}, "1", launchOrCycleFocus("/Applications/Google Chrome.app"))
+hyper:bind({}, "2", launchOrCycleFocus("/Applications/Visual Studio Code.app"))
+hyper:bind({}, "3", launchOrCycleFocus("/Applications/iTerm.app"))
+hyper:bind({}, "4", launchOrCycleFocus("/System/Library/CoreServices/Finder.app"))
+hyper:bind({}, "space", function() hs.eventtap.keyStroke({'cmd'}, 'space') end)
+hyper:bind({}, 'q', function() hs.window.focusedWindow():close() end)
+
 return hyper

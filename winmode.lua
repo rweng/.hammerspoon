@@ -19,13 +19,13 @@ hs.window.animationDuration = 0
 hs.grid.setGrid'2x2'
 
 -- move window to next screen
-winman:bind({}, "N", function()
+winman:bind({}, "n", function()
 	local win = hs.window.focusedWindow()
 	win:moveToScreen(win:screen():next())
 end)
 
 -- maximize current window
-winman:bind({}, "F", function()
+winman:bind({}, "f", function()
 	hs.window.focusedWindow():maximize()
 end)
 
@@ -51,9 +51,3 @@ winman:bind({}, "down", function()
     local cell = hs.grid.get(win)
 	hs.grid.set(hs.window.focusedWindow(), { x=cell.x, y=1, w=cell.w, h=1 })
 end)
-
-winman:bind({}, "1", launchOrCycleFocus("/Applications/Google Chrome.app"))
-winman:bind({}, "2", launchOrCycleFocus("/Applications/Visual Studio Code.app"))
-winman:bind({}, "3", launchOrCycleFocus("/Applications/iTerm.app"))
-winman:bind({}, "4", launchOrCycleFocus("/System/Library/CoreServices/Finder.app"))
-winman:bind({}, 'q', function() hs.window.focusedWindow():close() end)

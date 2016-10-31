@@ -17,6 +17,7 @@ end
 
 hs.window.animationDuration = 0
 hs.grid.setGrid'2x2'
+hs.grid.setMargins({x=0, y=0})
 
 -- move window to next screen
 winman:bind({}, "n", function()

@@ -12,23 +12,25 @@ local modifierCombinations = {
   {'cmd', 'ctrl', 'alt', 'shift'}
 }
 
-local function left(modifiers) return function() hs.eventtap.keyStroke(modifiers, "left") end end
-local function right(modifiers) return function() hs.eventtap.keyStroke(modifiers, "right") end end
-local function up(modifiers) return function() hs.eventtap.keyStroke(modifiers, "up") end end
-local function down(modifiers) return function()hs.eventtap.keyStroke(modifiers, "down") end end
-local function delete(modifiers) return function()hs.eventtap.keyStroke(modifiers, "delete") end end
-local function forwarddelete(modifiers) return function()hs.eventtap.keyStroke(modifiers, "forwarddelete") end end
+local function bindHyper(modifiers, key, toKey)
+  hyper:bind(modifiers, key, 
+    function() hs.eventtap.event.newKeyEvent(modifiers, toKey, true):post() end, 
+    function() hs.eventtap.event.newKeyEvent(modifiers, toKey, false):post() end,
+    function() 
+      hs.eventtap.event.newKeyEvent(modifiers, toKey, true):setProperty(hs.eventtap.event.properties.keyboardEventAutorepeat, 1):post() 
+    end
+  )
+end
 
 -- Bind the Hyper and arrow keys
 for i, modifiers in ipairs(modifierCombinations) do
   hs.hotkey.bind(modifiers, hyperKey, function() hyper:enter() end, function() hyper:exit() end)
-
-  hyper:bind(modifiers, 'j', nil, left(modifiers))
-  hyper:bind(modifiers, 'l', nil, right(modifiers))
-  hyper:bind(modifiers, 'i', nil, up(modifiers))
-  hyper:bind(modifiers, 'k', nil, down(modifiers))
-  hyper:bind(modifiers, 'u', nil, delete(modifiers))
-  hyper:bind(modifiers, 'o', nil, forwarddelete(modifiers))
+  bindHyper(modifiers, 'j', 'left')
+  bindHyper(modifiers, 'l', 'right')
+  bindHyper(modifiers, 'i', 'up')
+  bindHyper(modifiers, 'k', 'down')
+  bindHyper(modifiers, 'u', 'delete')
+  bindHyper(modifiers, 'o', 'forwarddelete')
 end
 
 -- applications
@@ -36,6 +38,7 @@ hyper:bind({}, "1", launchOrCycleFocus("/Applications/Google Chrome.app"))
 hyper:bind({}, "2", launchOrCycleFocus("/Applications/Visual Studio Code.app"))
 hyper:bind({}, "3", launchOrCycleFocus("/Applications/iTerm.app"))
 hyper:bind({}, "4", launchOrCycleFocus("/System/Library/CoreServices/Finder.app"))
+hyper:bind({}, "5", launchOrCycleFocus("/Applications/Todoist.app"))
 hyper:bind({}, "space", function() hs.eventtap.keyStroke({'cmd'}, 'space') end)
 hyper:bind({}, 'q', function() hs.window.focusedWindow():close() end)
 

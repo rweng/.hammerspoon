@@ -31,23 +31,23 @@ winman:bind({}, "f", function()
 end)
 
 -- 1/2 of the screen bindings
-winman:bind({}, "left", function()
+winman:bind({}, "j", function()
 	hs.grid.set(hs.window.focusedWindow(), { x=0, y=0, w=1, h=2 })
 end)
 
-winman:bind({}, "right", function()
+winman:bind({}, "l", function()
 	hs.grid.set(hs.window.focusedWindow(), { x=1, y=0, w=1, h=2 })
 end)
 
 -- up and down behave differently in the way that they keep the width and x position,
 -- but push the window in the upper or lower half of the screen
-winman:bind({}, "up", function()
+winman:bind({}, "i", function()
 	local win = hs.window.focusedWindow()
     local cell = hs.grid.get(win)
 	hs.grid.set(hs.window.focusedWindow(), { x=cell.x, y=0, w=cell.w, h=1 })
 end)
 
-winman:bind({}, "down", function()
+winman:bind({}, "k", function()
 	local win = hs.window.focusedWindow()
     local cell = hs.grid.get(win)
 	hs.grid.set(hs.window.focusedWindow(), { x=cell.x, y=1, w=cell.w, h=1 })

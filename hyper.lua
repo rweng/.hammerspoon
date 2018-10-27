@@ -1,3 +1,5 @@
+require 'extensions'
+
 local inspect = require('inspect')
 local logger = hs.logger.new('hyper.lua', 'info')
 

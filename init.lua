@@ -8,5 +8,5 @@ hs.consoleOnTop(true)
 
 -- configurations
 require 'reload-config'
-require 'winmode'
 require 'hyper'
+require 'winmode'
